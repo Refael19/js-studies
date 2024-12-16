@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js studies</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="main">
+        <div class="header">
+            <h1>Tasks</h1>
+            <div>
+                <button id="tasksButton" onclick="sortTasks()">Tasks</button>
+                <button id="addButton" onclick="add()">Add task</button>
+                <select name="sort" id="sort" onchange="sortTasks()">
+                    <option value="date">Sort by date</option>
+                    <option value="importance">Sort by importance</option>
+                </select>
+            </div>
+        </div>
+        <div style="display: flex; justify-content: space-between; width: 100%; align-self: baseline; background-color: rgb(245, 202, 146);">
+            <button id="numTasks" style="cursor: auto; background-color: rgb(249, 219, 85);"></button>
+            <button onclick="deleteAll()">Delete all tasks.</button>
+        </div>
+        <div class="table" id="table" style="font-size: 3em; min-height: 400px;">
+
+        </div>
+    </div>
+
+    <script src="./index.js"></script>
+</body>
+
+</html>
