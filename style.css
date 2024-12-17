@@ -34,8 +34,16 @@ button {
     margin: 10px;
     cursor: pointer;
 }
-button:active{
+
+button:active {
     background-color: rgb(244, 208, 164);
+}
+
+.deleteButton {
+    font-size: 1em;
+    background-color: red;
+    min-width: fit-content;
+    padding: 10px;
 }
 
 select {
@@ -48,7 +56,7 @@ select {
     margin: 10px;
     cursor: pointer;
     text-align: center;
-    
+
 }
 
 
@@ -75,7 +83,7 @@ select {
     font-size: 0.33em;
 }
 
-textarea{
+textarea {
     border: none;
     border-radius: 5px;
     overflow: auto;
@@ -84,9 +92,11 @@ textarea{
     min-height: 100px;
     min-width: 80%;
 }
-label{
+
+label {
     font-size: 1.5em;
 }
+
 input {
     border: none;
     border-radius: 5px;
@@ -94,7 +104,8 @@ input {
     font-size: 1.5em;
     width: fit-content;
 }
-.taskLine{
+
+.taskLine {
     margin: 5px;
     display: flex;
     gap: 5px;
