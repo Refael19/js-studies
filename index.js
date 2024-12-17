@@ -72,15 +72,11 @@ let deleteAll = () => {
     table.innerHTML = "The all tasks deleted"
 }
 
-let deleteButton = (taskID) => {
-    while(!alert.value){
-        
-    }
+let deleteButton = (taskID,title) => {
     tasks = tasks.filter(task => (task.taskID !== taskID))
     localStorage.setItem("tasks", JSON.stringify(tasks))
     numTasks.innerHTML = `Num of tasks: ${sumTasks()}`
     sortTasks()
-
 }
 
 const select = document.getElementById("sort")
@@ -90,7 +86,6 @@ let sortTasks = () => {
         table.innerHTML = "Your do not have any task."
         return
     }
-    console.log(select.value)
     if (select.value === "date") {
         tasks.sort((a, b) => new Date(a.endDate) - new Date(b.endDate))
     }
@@ -104,7 +99,7 @@ let sortTasks = () => {
         table.innerHTML += `            <div class="task" style="width: 40%; overflow-y: scroll;">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <div>End date: ${task.endDate}</div>
-                    <div><button class="deleteButton" onclick="deleteButton(${task.taskID})">Delete</button></div>
+                    <div><button class="deleteButton" onclick="deleteButton(${task.taskID,task.title})">Delete</button></div>
                     <div>Importance: ${task.importance}</div>
                 </div>
                 <div>
@@ -113,5 +108,4 @@ let sortTasks = () => {
                 </div>
             </div>`
     });
-
 }
