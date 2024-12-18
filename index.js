@@ -72,7 +72,7 @@ let deleteAll = () => {
     table.innerHTML = "The all tasks deleted"
 }
 
-let deleteButton = (taskID,title) => {
+let deleteButton = (taskID) => {
     tasks = tasks.filter(task => (task.taskID !== taskID))
     localStorage.setItem("tasks", JSON.stringify(tasks))
     numTasks.innerHTML = `Num of tasks: ${sumTasks()}`
@@ -99,7 +99,7 @@ let sortTasks = () => {
         table.innerHTML += `            <div class="task" style="width: 40%; overflow-y: scroll;">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <div>End date: ${task.endDate}</div>
-                    <div><button class="deleteButton" onclick="deleteButton(${task.taskID,task.title})">Delete</button></div>
+                    <div><button class="deleteButton" onclick="deleteButton(${task.taskID})">Delete</button></div>
                     <div>Importance: ${task.importance}</div>
                 </div>
                 <div>
