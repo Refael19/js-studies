@@ -8,8 +8,12 @@ let add = () => {
                     <input id="endDate" type="date" name="endDate">
                 </div>
                 <div class="taskLine">
-                    <label for="importance">Importance:</label>
-                    <input id="importance" type="number" name="importance" style="width: 100px;" value="1">
+                    <label for="importance">importance:</label>
+                    <select name="importance" id="importance" class="importance">
+                        <option value=1>Low</option>
+                        <option value=2>Medium</option>
+                        <option value=3>High</option>
+                    </select>
                 </div>
                 <div class="taskLine">
                     <label for="title">Title:</label>
@@ -34,6 +38,7 @@ submitButton = () => {
     const importance = document.getElementById("importance")
     const title = document.getElementById("title")
     const content = document.getElementById("content")
+    const completed = document.getElementById("completed")
 
     while (!title.value.trim()) {
         title.value = prompt("Enter a title.")
@@ -41,10 +46,12 @@ submitButton = () => {
 
     let newTask = {
         "taskID": taskID,
-        "endDate": endDate.value ? endDate.value : new Date().getFullYear(),
+        "endDate": endDate.value ? endDate.value : new Date().toISOString().split('T')[0],
         "importance": importance.value,
         "title": title.value,
-        "content": content.value
+        "content": content.value,
+        "completed": "no",
+        "completedColor": "red"
     }
 
     tasks.push(newTask)
@@ -61,15 +68,20 @@ let sumTasks = () => tasks.length
 
 let start = () => {
     numTasks.innerHTML = `Num of tasks: ${sumTasks()}`
-    add()
+    sortTasks()
 }
-start()
 
 let deleteAll = () => {
-    localStorage.clear()
-    tasks = []
-    numTasks.innerHTML = `Num of tasks: ${0}`
-    table.innerHTML = "The all tasks deleted"
+    let isOK = prompt("Write 'delete' if you want to delete all tasks")
+    console.log(isOK)
+    if (isOK === "delete") {
+        localStorage.clear()
+        tasks = []
+        numTasks.innerHTML = `Num of tasks: ${0}`
+        table.innerHTML = "The all tasks deleted."
+    }else{
+        table.innerHTML = `You did not write 'delete',<br/> the tasks were not deleted.`
+    }
 }
 
 let deleteButton = (taskID) => {
@@ -80,6 +92,29 @@ let deleteButton = (taskID) => {
 }
 
 const select = document.getElementById("sort")
+
+let completedButton = (taskID) => {
+    let i = tasks.findIndex(task => task.taskID === taskID)
+
+    if (tasks[i].completed === "no") {
+        tasks = tasks.map(temp => {
+            if (temp.taskID === taskID) {
+                temp.completed = "yes"
+                temp.completedColor = "green"
+            } return temp
+        })
+        localStorage.setItem("tasks", JSON.stringify(tasks))
+    } else {
+        tasks = tasks.map(temp => {
+            if (temp.taskID === taskID) {
+                temp.completed = "no"
+                temp.completedColor = "red"
+            } return temp
+        })
+        localStorage.setItem("tasks", JSON.stringify(tasks))
+    }
+    sortTasks()
+}
 
 let sortTasks = () => {
     if (!tasks[0]) {
@@ -99,8 +134,11 @@ let sortTasks = () => {
         table.innerHTML += `            <div class="task" style="width: 40%; overflow-y: scroll;">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <div>End date: ${task.endDate}</div>
-                    <div><button class="deleteButton" onclick="deleteButton(${task.taskID})">Delete</button></div>
                     <div>Importance: ${task.importance}</div>
+                </div>
+                <div style="display: flex; justify-content: space-around; align-items: center; font-size: 1em;">
+                    <div><button class="completedButton" onclick="completedButton(${task.taskID})">Completed: <span style="color:${task.completedColor}">${task.completed}</span></button></div>
+                    <div><button class="deleteButton" onclick="deleteButton(${task.taskID})">Delete</button></div>
                 </div>
                 <div>
                     <div style="font-size: 3em;">${task.title}</div>
@@ -109,3 +147,7 @@ let sortTasks = () => {
             </div>`
     });
 }
+
+
+
+start()

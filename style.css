@@ -39,6 +39,7 @@ button:active {
     background-color: rgb(244, 208, 164);
 }
 
+
 .deleteButton {
     font-size: 1em;
     background-color: red;
@@ -59,6 +60,12 @@ select {
 
 }
 
+.importance{
+    font-size: 1em;
+    background-color: rgb(250, 172, 77);    min-width: fit-content;
+    padding: 2px;
+    margin: 0;
+}
 
 .table {
     min-height: 300px;
